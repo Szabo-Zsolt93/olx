@@ -1,0 +1,22 @@
+package com.sda.olx.service;
+
+import com.sda.olx.dto.ProductDto;
+import com.sda.olx.entity.Product;
+import com.sda.olx.mapper.ProductMapper;
+import com.sda.olx.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ProductService {
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private ProductMapper productMapper;
+    public void addProduct(ProductDto productDto){
+        Product product = productMapper.map(productDto);
+        productRepository.save(product);
+
+    }
+
+}
