@@ -20,4 +20,7 @@ public class Product {
     private String price;
     @Enumerated(value = EnumType.STRING)
     private ProductCategory category;
+    @Lob
+    @Column(columnDefinition="LONGBLOB")
+    private byte [] image;
 }
