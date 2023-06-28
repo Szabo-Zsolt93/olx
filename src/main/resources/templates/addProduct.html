@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<form th:object="${productDto}" action="/addProduct" method="post" style="max-width: 600px;margin:0 auto;">
+<form th:object="${productDto}" action="/addProduct" method="post" style="max-width: 600px;margin:0 auto ;" enctype="multipart/form-data" >
     <div class="mb-3">
 <label class="form-label" for="productName">ProductName</label>
 <input  th:field="*{name}" type="text" class="form-control" id="productName" placeholder="ProductName">
@@ -31,7 +31,12 @@
         <input th:field="*{description}" type="text" class="form-control" id="description" placeholder="Description">
     </div>
 
+    <div class="form-group">
+        <label for="image">Image</label>
+        <input  type="file" id="image" name="productImage">
+<!--                    <p th:each="error : ${#fields.errors('productImage')}" th:text="${error}" class="error"></p>-->
     </div>
+
 </div>
 <button type="submit" class="btn btn-primary">Add product</button>
 
