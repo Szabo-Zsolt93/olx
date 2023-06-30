@@ -21,6 +21,7 @@ public class Product {
     @Enumerated(value = EnumType.STRING)
     private ProductCategory category;
     @Lob
-    @Column(columnDefinition="LONGBLOB")
-    private byte [] image;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] image;
+
 }
