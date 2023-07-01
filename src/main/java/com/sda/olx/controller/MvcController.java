@@ -6,9 +6,12 @@ import com.sda.olx.dto.UserDto;
 import com.sda.olx.service.LoginService;
 import com.sda.olx.service.ProductService;
 import com.sda.olx.service.UserService;
+import com.sda.olx.validator.UserValidator;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +22,8 @@ import java.io.IOException;
 
 @Controller
 public class MvcController {
+    @Autowired
+    private UserValidator userValidator;
     @Autowired
     private LoginService loginService;
     @Autowired
@@ -32,7 +37,6 @@ public class MvcController {
         ProductDto productDto = new ProductDto();
         model.addAttribute("productDto", productDto);
         return "addProduct";
-
 
     }
 
@@ -58,7 +62,11 @@ public class MvcController {
     }
 
     @PostMapping("/registration")
-    public String registrationPost(@ModelAttribute(name = "userDto") UserDto userDto) {
+    public String registrationPost(@ModelAttribute(name = "userDto")@Valid UserDto userDto, BindingResult bindingResult) {
+        userValidator.validate(userDto,bindingResult);
+        if(bindingResult.hasErrors()){
+            return "registration";
+        }
         userService.createUser(userDto);
         return "redirect:/registration";
 
